@@ -1,0 +1,118 @@
+@mixin clear {
+    content: '';
+    display: block;
+    clear: both;
+}
+@mixin x_center{
+    left: 50%;
+    transform: translateX(-50%);
+}
+@mixin y_center{
+    top: 50%;
+    transform: translateY(-50%);
+}
+@mixin center{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+@mixin center_reset{
+    top: 0;
+    left: 0;
+    transform: none;
+}
+@mixin atl{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: auto;
+}
+@mixin atr{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    bottom: auto;
+}
+@mixin abl {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    top: auto;
+}
+@mixin abr {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: auto;
+    left: auto;
+}
+@mixin ftl{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: auto;
+    z-index: 1;
+}
+@mixin ftr{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: auto;
+    bottom: auto;
+    z-index: 1;
+}
+@mixin fbl {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    top: auto;
+    z-index: 1;
+}
+@mixin fbr {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: auto;
+    left: auto;
+    z-index: 1;
+}
+
+@mixin title1 {
+    font-size: 40px;
+    line-height: 54px;
+    color: black;
+}
+@mixin title2 {
+    font-size: 34px;
+    color: black;
+}
+@mixin titleEN {
+    font-size: 40px;
+    line-height: 54px;
+    color: black;
+}
+@mixin banner {
+    font-size: 60px;
+    line-height: 54px;
+    color: white;
+}
+@mixin subTitle {
+    font-size: 21px;
+    font-size: 28px;
+    color: black;
+}
+@mixin inner {
+    font-size: 16px;
+    line-height: 28px;
+    color: black;
+}
+@mixin notice {
+    font-size: 14px;
+    line-height: 24px;
+    color: black;
+}

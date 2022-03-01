@@ -1,0 +1,322 @@
+@import './base';
+.datepicker{
+    position: relative;
+    & *{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    p{
+        margin: 0;
+    }
+    img{
+        width: 100%;
+    }
+    button{
+        display: block;
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    &.active{
+        .calender-icon{
+            width: 13px;
+            filter: none;
+        }
+    }
+    .calender-icon{
+        width: 13px;
+        filter: brightness(0);
+    }
+    .next, .prev{
+        cursor: pointer;
+    }
+    .date-input-frame{
+        width: 100%;
+        height: 40px;
+        border: 1px solid;
+    }
+    .date-input{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+        > p{
+            font-size: 16px;
+        }
+    }
+    .datepicker-panel{
+        display: none;
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        width: 270px;
+        height: 460px;
+        border-radius: 23px;
+        transform: translateY(100%);
+        box-shadow: 0 0 8px rgba(0,0,0,0.16);
+        z-index: 1;
+        background-color: #fff;
+        .datepicker-panel-header{
+            padding: 18px 12px;
+            box-sizing: border-box;
+            background-color: $standard;
+            border-top-left-radius: 23px;
+            border-top-right-radius: 23px;
+            height: 66px;
+            .range-input{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                > span{
+                    display: block;
+                    width: 8px;
+                    height: 1px;
+                    background-color: #fff;
+                }
+                .date-input{
+                    width: 100px;
+                    height: 30px;
+                    background-color: #ededed;
+                    padding: 0 6px;
+                    border-radius: 8px;
+                    cursor: auto;
+                    p{
+                        font-size: 14px;
+                        color: #B2B2B2;
+                    }
+                    .calender-icon{
+                        width: 11px;
+                        filter: none;
+                    }
+                    &.active{
+                        background-color: #fff;
+                        cursor: pointer;
+                        p{
+                            color: #000;
+                        }
+                    }
+                }
+            }
+        }
+        .datepicker-panel-body{
+            padding: 20px 0;
+            table{
+                width: 240px;
+                margin: 0 auto;
+                border-collapse: inherit;
+                border-spacing: 0;
+            }
+            table.day-frame{
+                display: block;
+                tr{
+                    td,th{
+                        width: 35px;
+                        height: 35px;
+                        text-align: center;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                    }
+                    th{
+                        cursor: pointer;
+                        > img{
+                            width: 7px;
+                        }
+                        &.MAndY{
+                            color: $standard;
+                        }
+                    }
+                    .day{
+                        position: relative;
+                        cursor: pointer;
+                        border: 1px solid transparent;
+                        border-radius: 50%;
+                        button{
+                            font-size: 16px;
+                            color: #000;
+                        }
+                    }
+                    .day:hover{
+                        border: 1px solid $standard;
+                        border-radius: 50%;
+                    }
+                    .day.select{
+                        button{
+                            color: #fff;
+                            border-radius: 50%;
+                            background-color: $standard;
+                        }
+                    }
+                    .day.select.start-day{
+                        background: linear-gradient(to right, #fff 0%,#fff 50%,rgba(255,97,0,0.15) 50%,rgba(255,97,0,0.15) 100%);
+                        border-radius: 0;
+                        border: none;
+                        button{
+                            color: #fff;
+                        }
+                    }
+                    .day.select.end-day{
+                        background: linear-gradient(to left, #fff 0%,#fff 50%,rgba(255,97,0,0.15) 50%,rgba(255,97,0,0.15) 100%);
+                        border-radius: 0;
+                        border: none;
+                        button{
+                            color: #fff;
+                        }
+                    }
+                    .day.range{
+                        border-radius: 0px;
+                        background-color: rgba(255,97,0,0.15);
+                    }
+                    .new, .old{
+                        cursor: auto;
+                        border: 1px solid transparent !important;
+                        button{
+                            color: $grey;
+                        }
+                    }
+                }
+            }
+            table.year-frame{
+                tr{
+                    td,th{
+                        width: 35px;
+                        height: 35px;
+                        text-align: center;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                    }
+                    .back, .empty{
+                        font-size: 13px;
+                        color: $standard;
+                        cursor: pointer;
+                    }
+                    .empty{
+                        cursor: auto;
+                        pointer-events: none;
+                        opacity: 0;
+                    }
+                    th{
+                        padding-bottom: 16px;
+                        .thead{
+                            display: flex;
+                            justify-content: space-between;
+                            > img{
+                                width: 7px;
+                            }
+                            .prev, .next{
+                                width: 7px;
+                            }
+                        }
+                    }
+                    td{
+                        cursor: pointer;
+                        height: 35px;
+                        padding-bottom: 5px;
+                        > div{
+                            width: 64px;
+                            height: 100%;
+                            border-radius: 10000px;
+                            border: 1px solid transparent;
+                            line-height: 32px;
+                            margin: 0 auto;
+                            &:hover{
+                                border: 1px solid $standard;
+                            }
+                        }
+                        &.select{
+                            > div{
+                                background-color: $standard;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+            table.month-frame{
+                tr{
+                    td,th{
+                        width: 35px;
+                        height: 35px;
+                        text-align: center;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                    }
+                    .thead{
+                        display: flex;
+                        justify-content: space-between;
+                        .back, .empty{
+                            font-size: 13px;
+                            color: $standard;
+                            cursor: pointer;
+                        }
+                        .empty{
+                            cursor: auto;
+                            pointer-events: none;
+                            opacity: 0;
+                        }
+                    }
+                    th{
+                        padding-bottom: 24px;   
+                    }
+                    td{
+                        cursor: pointer;
+                        height: 35px;
+                        padding-bottom: 10px;
+                        > div{
+                            width: 96px;
+                            height: 100%;
+                            border-radius: 10000px;
+                            border: 1px solid transparent;
+                            line-height: 35px;
+                            margin: 0 auto;
+                            &:hover{
+                                border: 1px solid $standard;
+                            }
+                        }
+                        &.select{
+                            > div{
+                                background-color: $standard;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .datepicker-panel-footer{
+            .btn-group{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 222px;
+                height: 40px;
+                margin: 0 auto;
+                > div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 104px;
+                    height: 100%;
+                    border-radius: 10000px;
+                    text-align: center;
+                    cursor: pointer;
+                    &.cancel{
+                        color: $grey;
+                        border: $grey 1px solid;
+                    }
+                    &.apply{
+                        color: #fff;
+                        background-color: $standard;
+                    }
+                }
+            }
+        }
+    }
+}

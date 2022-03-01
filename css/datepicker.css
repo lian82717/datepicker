@@ -1,0 +1,239 @@
+.datepicker {
+  position: relative; }
+  .datepicker * {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  .datepicker p {
+    margin: 0; }
+  .datepicker img {
+    width: 100%; }
+  .datepicker button {
+    display: block;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; }
+  .datepicker.active .calender-icon {
+    width: 13px;
+    filter: none; }
+  .datepicker .calender-icon {
+    width: 13px;
+    filter: brightness(0); }
+  .datepicker .next, .datepicker .prev {
+    cursor: pointer; }
+  .datepicker .date-input-frame {
+    width: 100%;
+    height: 40px;
+    border: 1px solid; }
+  .datepicker .date-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer; }
+    .datepicker .date-input > p {
+      font-size: 16px; }
+  .datepicker .datepicker-panel {
+    display: none;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 270px;
+    height: 460px;
+    border-radius: 23px;
+    transform: translateY(100%);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.16);
+    z-index: 1;
+    background-color: #fff; }
+    .datepicker .datepicker-panel .datepicker-panel-header {
+      padding: 18px 12px;
+      box-sizing: border-box;
+      background-color: #FF6100;
+      border-top-left-radius: 23px;
+      border-top-right-radius: 23px;
+      height: 66px; }
+      .datepicker .datepicker-panel .datepicker-panel-header .range-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; }
+        .datepicker .datepicker-panel .datepicker-panel-header .range-input > span {
+          display: block;
+          width: 8px;
+          height: 1px;
+          background-color: #fff; }
+        .datepicker .datepicker-panel .datepicker-panel-header .range-input .date-input {
+          width: 100px;
+          height: 30px;
+          background-color: #ededed;
+          padding: 0 6px;
+          border-radius: 8px;
+          cursor: auto; }
+          .datepicker .datepicker-panel .datepicker-panel-header .range-input .date-input p {
+            font-size: 14px;
+            color: #B2B2B2; }
+          .datepicker .datepicker-panel .datepicker-panel-header .range-input .date-input .calender-icon {
+            width: 11px;
+            filter: none; }
+          .datepicker .datepicker-panel .datepicker-panel-header .range-input .date-input.active {
+            background-color: #fff;
+            cursor: pointer; }
+            .datepicker .datepicker-panel .datepicker-panel-header .range-input .date-input.active p {
+              color: #000; }
+    .datepicker .datepicker-panel .datepicker-panel-body {
+      padding: 20px 0; }
+      .datepicker .datepicker-panel .datepicker-panel-body table {
+        width: 240px;
+        margin: 0 auto;
+        border-collapse: inherit;
+        border-spacing: 0; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.day-frame {
+        display: block; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr td, .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr th {
+          width: 35px;
+          height: 35px;
+          text-align: center;
+          font-size: 16px;
+          box-sizing: border-box; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr th {
+          cursor: pointer; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr th > img {
+            width: 7px; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr th.MAndY {
+            color: #FF6100; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day {
+          position: relative;
+          cursor: pointer;
+          border: 1px solid transparent;
+          border-radius: 50%; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day button {
+            font-size: 16px;
+            color: #000; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day:hover {
+          border: 1px solid #FF6100;
+          border-radius: 50%; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day.select button {
+          color: #fff;
+          border-radius: 50%;
+          background-color: #FF6100; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day.select.start-day {
+          background: linear-gradient(to right, #fff 0%, #fff 50%, rgba(255, 97, 0, 0.15) 50%, rgba(255, 97, 0, 0.15) 100%);
+          border-radius: 0;
+          border: none; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day.select.start-day button {
+            color: #fff; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day.select.end-day {
+          background: linear-gradient(to left, #fff 0%, #fff 50%, rgba(255, 97, 0, 0.15) 50%, rgba(255, 97, 0, 0.15) 100%);
+          border-radius: 0;
+          border: none; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day.select.end-day button {
+            color: #fff; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .day.range {
+          border-radius: 0px;
+          background-color: rgba(255, 97, 0, 0.15); }
+        .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .new, .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .old {
+          cursor: auto;
+          border: 1px solid transparent !important; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .new button, .datepicker .datepicker-panel .datepicker-panel-body table.day-frame tr .old button {
+            color: #B2B2B2; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td, .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr th {
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        font-size: 16px;
+        box-sizing: border-box; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr .back, .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr .empty {
+        font-size: 13px;
+        color: #FF6100;
+        cursor: pointer; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr .empty {
+        cursor: auto;
+        pointer-events: none;
+        opacity: 0; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr th {
+        padding-bottom: 16px; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr th .thead {
+          display: flex;
+          justify-content: space-between; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr th .thead > img {
+            width: 7px; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr th .thead .prev, .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr th .thead .next {
+            width: 7px; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td {
+        cursor: pointer;
+        height: 35px;
+        padding-bottom: 5px; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td > div {
+          width: 64px;
+          height: 100%;
+          border-radius: 10000px;
+          border: 1px solid transparent;
+          line-height: 32px;
+          margin: 0 auto; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td > div:hover {
+            border: 1px solid #FF6100; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td.select > div {
+          background-color: #FF6100;
+          color: #fff; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td, .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr th {
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        font-size: 16px;
+        box-sizing: border-box; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr .thead {
+        display: flex;
+        justify-content: space-between; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr .thead .back, .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr .thead .empty {
+          font-size: 13px;
+          color: #FF6100;
+          cursor: pointer; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr .thead .empty {
+          cursor: auto;
+          pointer-events: none;
+          opacity: 0; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr th {
+        padding-bottom: 24px; }
+      .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td {
+        cursor: pointer;
+        height: 35px;
+        padding-bottom: 10px; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td > div {
+          width: 96px;
+          height: 100%;
+          border-radius: 10000px;
+          border: 1px solid transparent;
+          line-height: 35px;
+          margin: 0 auto; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td > div:hover {
+            border: 1px solid #FF6100; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td.select > div {
+          background-color: #FF6100;
+          color: #fff; }
+    .datepicker .datepicker-panel .datepicker-panel-footer .btn-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 222px;
+      height: 40px;
+      margin: 0 auto; }
+      .datepicker .datepicker-panel .datepicker-panel-footer .btn-group > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 104px;
+        height: 100%;
+        border-radius: 10000px;
+        text-align: center;
+        cursor: pointer; }
+        .datepicker .datepicker-panel .datepicker-panel-footer .btn-group > div.cancel {
+          color: #B2B2B2;
+          border: #B2B2B2 1px solid; }
+        .datepicker .datepicker-panel .datepicker-panel-footer .btn-group > div.apply {
+          color: #fff;
+          background-color: #FF6100; }

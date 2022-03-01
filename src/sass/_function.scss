@@ -1,0 +1,12 @@
+@function fvw($a){
+    @return ( $a / $vw ) * 100vw;
+}
+@function mfvw($a){
+    @return ( $a / $mvw ) * 100vw;
+}
+@function fvh($a,$b){
+    @return ( $a / $b ) * 100vh;
+}
+@function fpct($a,$b){
+    @return ( $a / $b ) * 100%;
+}
