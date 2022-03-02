@@ -46,6 +46,9 @@ var Datepicker = function Datepicker(element) {
   this.el = element; //options
 
   this.lang = options.lang || 'en';
+  this.startDate = new Date(options.startDate).getTime() || '';
+  this.endDate = new Date(options.endDate).getTime() || '';
+  this.placeholder = options.placeholder || 'Date';
   this.date = {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
@@ -78,7 +81,7 @@ Datepicker.prototype.init = function () {
 Datepicker.prototype.build = function () {
   var _this = this;
 
-  var temp = "\n        <div class=\"date-input-frame\">\n            <div class=\"date-input\">\n                <p>date range</p>\n                <div class=\"calender-icon\">\n                    <img src=\"./images/ic-actions-calendar.png\" alt=\"\">\n                </div>\n            </div>\n        </div>\n        <div class=\"datepicker-panel\">\n            <div class=\"datepicker-panel-header\">\n                <div class=\"range-input\">\n                    <div class=\"date-input start-date-input active\">\n                        <p>From</p>\n                        <div class=\"calender-icon\">\n                            <img src=\"./images/ic-actions-calendar.png\" alt=\"\">\n                        </div>\n                    </div>\n                    <span></span>\n                    <div class=\"date-input end-date-input\">\n                        <p>To</p>\n                        <div class=\"calender-icon\">\n                            <img src=\"./images/ic-actions-calendar.png\" alt=\"\">\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"datepicker-panel-body\">\n            </div>\n            <div class=\"datepicker-panel-footer\">\n                <div class=\"btn-group\">\n                    <div class=\"cancel\">\n                        <p>Cancel</p>\n                    </div>\n                    <div class=\"apply\">\n                        Apply\n                    </div>\n                </div>\n            </div>\n        </div>\n    ";
+  var temp = "\n        <div class=\"date-input-frame\">\n            <div class=\"date-input\">\n                <p>".concat(_this.placeholder, "</p>\n                <div class=\"calender-icon\">\n                    <img src=\"./images/ic-actions-calendar.png\" alt=\"\">\n                </div>\n            </div>\n        </div>\n        <div class=\"datepicker-panel\">\n            <div class=\"datepicker-panel-header\">\n                <div class=\"range-input\">\n                    <div class=\"date-input start-date-input active\">\n                        <p>From</p>\n                        <div class=\"calender-icon\">\n                            <img src=\"./images/ic-actions-calendar.png\" alt=\"\">\n                        </div>\n                    </div>\n                    <span></span>\n                    <div class=\"date-input end-date-input\">\n                        <p>To</p>\n                        <div class=\"calender-icon\">\n                            <img src=\"./images/ic-actions-calendar.png\" alt=\"\">\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"datepicker-panel-body\">\n            </div>\n            <div class=\"datepicker-panel-footer\">\n                <div class=\"btn-group\">\n                    <div class=\"cancel\">\n                        <p>Cancel</p>\n                    </div>\n                    <div class=\"apply\">\n                        Apply\n                    </div>\n                </div>\n            </div>\n        </div>\n    ");
   $(this.el).addClass('datepicker').append(temp);
 };
 
@@ -208,10 +211,22 @@ Datepicker.prototype.buildDaysTableIn = function (daysAry) {
     }
   });
   $(_this.el).find('.next').on('click', function () {
-    _this.changeMonth(_this.plusM().getY(), _this.plusM().getM());
+    if (_this.endDate) {
+      if (new Date(_this.plusM().getY(), _this.plusM().getM(), 1).getTime() <= _this.endDate) {
+        _this.changeMonth(_this.plusM().getY(), _this.plusM().getM());
+      }
+    } else {
+      _this.changeMonth(_this.plusM().getY(), _this.plusM().getM());
+    }
   });
   $(_this.el).find('.prev').on('click', function () {
-    _this.changeMonth(_this.minusM().getY(), _this.minusM().getM());
+    if (_this.startDate) {
+      if (new Date(_this.minusM().getY(), _this.minusM().getM(), 1).getTime() >= _this.startDate) {
+        _this.changeMonth(_this.minusM().getY(), _this.minusM().getM());
+      }
+    } else {
+      _this.changeMonth(_this.minusM().getY(), _this.minusM().getM());
+    }
   });
   $(_this.el).find('.MAndY').on('click', function () {
     _this.buildYearsTable(_this.date.year);
@@ -235,6 +250,16 @@ Datepicker.prototype.buildDaysTableIn = function (daysAry) {
     $(_this.el).find('.datepicker-panel').fadeOut('fast');
     $(_this.el).removeClass('active');
   });
+
+  if (_this.endDate && new Date(_this.date.year, _this.date.month, _this.date.days).getTime() >= _this.endDate) {
+    $(_this.el).find('.next').addClass('disable');
+  }
+
+  console.log(_this.startDate, new Date(_this.date.year, _this.date.month, 1).getTime());
+
+  if (_this.startDate && new Date(_this.date.year, _this.date.month, 1).getTime() <= _this.startDate) {
+    $(_this.el).find('.prev').addClass('disable');
+  }
 };
 
 Datepicker.prototype.changeMonth = function (Y, M) {
@@ -293,6 +318,8 @@ Datepicker.prototype.buildYearsTable = function (Y) {
   var _this = this;
 
   var _body = document.getElementsByClassName('datepicker-panel-body')[0];
+  var minYear = new Date(_this.startDate).getFullYear();
+  var maxYear = new Date(_this.endDate).getFullYear();
   _body.innerHTML = "\n        <table class=\"year-frame\">\n            <thead>\n                <tr>\n                    <th colspan=\"6\">\n                        <div class=\"thead\">\n                            <div class=\"back\">back</div>\n                            <div class=\"prev\">\n                                <img src=\"./images/ic-chevron-left.png\" alt=\"\">\n                            </div>\n                            <div colspan=\"2\">".concat(Y - 10, " ~ ").concat(Y + 10, "</div>\n                            <div class=\"next\">\n                                <img src=\"./images/ic-chevron-right.png\" alt=\"\">\n                            </div>\n                            <div class=\"empty\">back</div>\n                        </div>\n                    </th>\n                </tr>\n            </thead>\n            <tbody>\n            </tbody>\n        </table>\n    ");
 
   for (var i = 0; i < 7; i++) {
@@ -312,6 +339,10 @@ Datepicker.prototype.buildYearsTable = function (Y) {
         td.className = 'year';
       }
 
+      if (_year < minYear || _year > maxYear) {
+        td.className += ' disable';
+      }
+
       div.appendChild(textNode);
       td.setAttribute('colspan', '2');
       td.setAttribute('data-year', _year);
@@ -328,7 +359,7 @@ Datepicker.prototype.buildYearsTable = function (Y) {
 
     $(_this.el).find('.btn-group').show();
   });
-  $(_this.el).find('.year-frame').find('.year').on('click', function () {
+  $(_this.el).find('.year-frame').find('.year').not('.disable').on('click', function () {
     var selectY = parseInt($(this).attr('data-year'));
 
     _this.buildMonthTable(selectY);
@@ -345,6 +376,10 @@ Datepicker.prototype.buildMonthTable = function (Y) {
   var _this = this;
 
   var _body = document.getElementsByClassName('datepicker-panel-body')[0];
+  var minYear = new Date(_this.startDate).getFullYear();
+  var maxYear = new Date(_this.endDate).getFullYear();
+  var minMonth = new Date(_this.startDate).getMonth();
+  var maxMonth = new Date(_this.endDate).getMonth();
   _body.innerHTML = "\n        <table class=\"month-frame\">\n            <thead>\n                <tr>\n                    <th colspan=\"6\">\n                        <div class=\"thead\">\n                            <div class=\"back\">back</div>\n                            <div>Month</div>\n                            <div class=\"empty\">back</div>\n                        </div>\n                    </th>\n                </tr>\n            </thead>\n            <tbody>\n            </tbody>\n        </table>\n    ";
 
   for (var i = 0; i < 6; i++) {
@@ -359,6 +394,12 @@ Datepicker.prototype.buildMonthTable = function (Y) {
         td.className = 'month select';
       } else {
         td.className = 'month';
+      }
+
+      if (Y === maxYear && i * 2 + j > maxMonth) {
+        td.className += ' disable';
+      } else if (Y === minYear && i * 2 + j < minMonth) {
+        td.className += ' disable';
       }
 
       div.appendChild(textNode);

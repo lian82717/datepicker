@@ -1,6 +1,7 @@
 @import './base';
 .datepicker{
     position: relative;
+    user-select: none;
     & *{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -33,6 +34,9 @@
     }
     .next, .prev{
         cursor: pointer;
+        &.disable{
+            filter: invert(0.8);
+        }
     }
     .date-input-frame{
         width: 100%;
@@ -236,6 +240,14 @@
                                 color: #fff;
                             }
                         }
+                        &.disable{
+                            color: #d4d4d4;
+                            > div{
+                                &:hover{
+                                    border: 1px solid transparent;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -284,6 +296,14 @@
                             > div{
                                 background-color: $standard;
                                 color: #fff;
+                            }
+                        }
+                        &.disable{
+                            color: #d4d4d4;
+                            > div{
+                                &:hover{
+                                    border: 1px solid transparent;
+                                }
                             }
                         }
                     }

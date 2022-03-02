@@ -57,6 +57,9 @@ let Datepicker = function(element, options = {}){
 
     //options
     this.lang = options.lang || 'en';
+    this.startDate = new Date(options.startDate).getTime() || '';
+    this.endDate = new Date(options.endDate).getTime() || '';
+    this.placeholder = options.placeholder || 'Date';
 
     this.date = {
         year: new Date().getFullYear(),
@@ -88,7 +91,7 @@ Datepicker.prototype.build = function(){
     const temp = `
         <div class="date-input-frame">
             <div class="date-input">
-                <p>date range</p>
+                <p>${_this.placeholder}</p>
                 <div class="calender-icon">
                     <img src="./images/ic-actions-calendar.png" alt="">
                 </div>
@@ -261,11 +264,23 @@ Datepicker.prototype.buildDaysTableIn = function(daysAry){
     })
 
     $(_this.el).find('.next').on('click', function(){
-        _this.changeMonth(_this.plusM().getY(), _this.plusM().getM());
+        if (_this.endDate) {
+            if(new Date(_this.plusM().getY(), _this.plusM().getM(), 1).getTime() <= _this.endDate){
+                _this.changeMonth(_this.plusM().getY(), _this.plusM().getM());
+            }
+        } else {
+            _this.changeMonth(_this.plusM().getY(), _this.plusM().getM());
+        }
     })
 
     $(_this.el).find('.prev').on('click', function(){
-        _this.changeMonth(_this.minusM().getY(), _this.minusM().getM());
+        if (_this.startDate) {
+            if(new Date(_this.minusM().getY(), _this.minusM().getM(), 1).getTime() >= _this.startDate){
+                _this.changeMonth(_this.minusM().getY(), _this.minusM().getM());
+            }
+        } else {
+            _this.changeMonth(_this.minusM().getY(), _this.minusM().getM());
+        }
     })
 
     $(_this.el).find('.MAndY').on('click', function(){
@@ -293,6 +308,15 @@ Datepicker.prototype.buildDaysTableIn = function(daysAry){
         $(_this.el).find('.datepicker-panel').fadeOut('fast');
         $(_this.el).removeClass('active');
     })
+    
+    if (_this.endDate && new Date(_this.date.year, _this.date.month, _this.date.days).getTime() >= _this.endDate) {
+        $(_this.el).find('.next').addClass('disable');
+    }
+    
+    console.log(_this.startDate , new Date(_this.date.year, _this.date.month, 1).getTime())
+    if (_this.startDate && new Date(_this.date.year, _this.date.month, 1).getTime() <= _this.startDate) {
+        $(_this.el).find('.prev').addClass('disable');
+    }
 }
 
 Datepicker.prototype.changeMonth = function(Y, M){
@@ -346,6 +370,8 @@ Datepicker.prototype.minusM = function(){
 Datepicker.prototype.buildYearsTable = function(Y){
     const _this = this;
     let _body = document.getElementsByClassName('datepicker-panel-body')[0];
+    let minYear = new Date(_this.startDate).getFullYear();
+    let maxYear = new Date(_this.endDate).getFullYear();
     _body.innerHTML = `
         <table class="year-frame">
             <thead>
@@ -381,6 +407,9 @@ Datepicker.prototype.buildYearsTable = function(Y){
             } else {
                 td.className = 'year';
             }
+            if(year < minYear || year > maxYear){
+                td.className += ' disable';
+            } 
             div.appendChild(textNode);
             td.setAttribute('colspan', '2');
             td.setAttribute('data-year', year);
@@ -397,7 +426,7 @@ Datepicker.prototype.buildYearsTable = function(Y){
         $(_this.el).find('.btn-group').show();
     })
 
-    $(_this.el).find('.year-frame').find('.year').on('click', function(){
+    $(_this.el).find('.year-frame').find('.year').not('.disable').on('click', function(){
         let selectY = parseInt($(this).attr('data-year'));
         _this.buildMonthTable(selectY);
     })
@@ -415,6 +444,10 @@ Datepicker.prototype.buildYearsTable = function(Y){
 Datepicker.prototype.buildMonthTable = function(Y){
     const _this = this;
     let _body = document.getElementsByClassName('datepicker-panel-body')[0];
+    let minYear = new Date(_this.startDate).getFullYear();
+    let maxYear = new Date(_this.endDate).getFullYear();
+    let minMonth = new Date(_this.startDate).getMonth();
+    let maxMonth = new Date(_this.endDate).getMonth();
     _body.innerHTML = `
         <table class="month-frame">
             <thead>
@@ -442,6 +475,12 @@ Datepicker.prototype.buildMonthTable = function(Y){
                 td.className = 'month select';
             } else {
                 td.className = 'month';
+            }
+
+            if(Y === maxYear && i*2+j > maxMonth) {
+                td.className += ' disable';
+            } else if (Y === minYear && i*2+j < minMonth) {
+                td.className += ' disable';
             }
             div.appendChild(textNode);
             td.setAttribute('colspan','3');

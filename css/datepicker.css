@@ -1,5 +1,9 @@
 .datepicker {
-  position: relative; }
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
   .datepicker * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   .datepicker p {
@@ -24,6 +28,8 @@
     filter: brightness(0); }
   .datepicker .next, .datepicker .prev {
     cursor: pointer; }
+    .datepicker .next.disable, .datepicker .prev.disable {
+      filter: invert(0.8); }
   .datepicker .date-input-frame {
     width: 100%;
     height: 40px;
@@ -180,6 +186,10 @@
         .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td.select > div {
           background-color: #FF6100;
           color: #fff; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td.disable {
+          color: #d4d4d4; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.year-frame tr td.disable > div:hover {
+            border: 1px solid transparent; }
       .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td, .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr th {
         width: 35px;
         height: 35px;
@@ -215,6 +225,10 @@
         .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td.select > div {
           background-color: #FF6100;
           color: #fff; }
+        .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td.disable {
+          color: #d4d4d4; }
+          .datepicker .datepicker-panel .datepicker-panel-body table.month-frame tr td.disable > div:hover {
+            border: 1px solid transparent; }
     .datepicker .datepicker-panel .datepicker-panel-footer .btn-group {
       display: flex;
       justify-content: space-between;
